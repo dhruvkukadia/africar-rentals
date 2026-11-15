@@ -3,74 +3,206 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Africar Rentals · Monthly Van Hire, Perth</title>
-<meta name="description" content="Monthly van hire in Perth, WA. Minimum 28 days. Check van availability and send an inquiry.">
+<title>Africar Rentals · Long-Term Van Hire Perth</title>
+<meta name="description" content="Long-term van hire in Perth, WA. 1-tonne and 2-tonne vans on flexible monthly terms with insurance, rego and servicing included. Check availability and enquire online.">
+<meta property="og:title" content="Africar Rentals · Long-term van hire in Perth">
+<meta property="og:description" content="1-tonne and 2-tonne vans on flexible monthly terms. Insurance, rego and servicing included.">
+<meta property="og:image" content="https://dhruvkukadia.github.io/africar-rentals/img/fleet.jpg">
+<link rel="icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:ital,wght@1,700;1,800&display=swap" rel="stylesheet">
 <style>
-  :root { --accent: #d9661f; --ink: #1d1d1f; --muted: #6b6b6b; --line: #e4e1dc; --free: #e6f4e7; --free-ink: #1b5e20; --booked: #d9d9d9; --clash: #c62828; }
+  :root {
+    --navy: #1b2455; --navy-2: #121a40; --orange: #f37021; --orange-2: #d95c12;
+    --ink: #1b1f2e; --muted: #5d6275; --line: #e6e3de; --paper: #f7f5f1;
+    --free: #e6f4e7; --free-ink: #1b5e20; --booked: #d9d9d9; --clash: #c62828;
+  }
   * { box-sizing: border-box; }
-  body { margin: 0; font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; color: var(--ink); background: #faf8f5; }
-  header { background: var(--ink); color: #fff; padding: 2.5rem 1rem; text-align: center; }
-  header h1 { margin: 0; font-size: 2rem; }
-  header p { margin: .25rem 0 0; opacity: .8; }
-  main { max-width: 960px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
-  main > h2 { margin: 0 0 1rem; }
-  #vans { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
-  .van { display: flex; flex-direction: column; gap: .15rem; text-align: left; font: inherit; color: inherit; padding: 1rem; border: 1px solid var(--line); border-radius: 12px; background: #fff; cursor: pointer; }
-  .van:hover, .van:focus-visible { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px rgb(217 102 31 / .2); }
-  .van .icon { font-size: 2.5rem; line-height: 1; margin-bottom: .5rem; }
-  .van span:not(.icon) { color: var(--muted); font-size: .9rem; }
-  .van em { margin-top: .5rem; font-style: normal; font-size: .9rem; color: var(--accent); font-weight: 600; }
-  footer.site { text-align: center; color: var(--muted); font-size: .9rem; padding: 0 1rem 2rem; }
-  footer.site a { color: var(--accent); }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font: 17px/1.55 Barlow, system-ui, sans-serif; color: var(--ink); background: var(--paper); }
+  h1, h2, h3, .display { font-family: 'Barlow Condensed', Barlow, sans-serif; font-style: italic; font-weight: 800; letter-spacing: .01em; line-height: 1.05; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+  .btn { display: inline-block; font: 600 1rem Barlow, sans-serif; text-decoration: none; color: #fff; background: var(--orange); padding: .75rem 1.25rem; border: 0; border-radius: 999px; cursor: pointer; }
+  .btn:hover { background: var(--orange-2); }
 
-  dialog { width: min(960px, calc(100% - 2rem)); height: min(820px, calc(100% - 2rem)); padding: 0; border: 0; border-radius: 14px; }
+  /* Nav */
+  .nav { position: sticky; top: 0; z-index: 5; background: #fff; border-bottom: 1px solid var(--line); }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+  .nav img { height: 58px; width: auto; }
+  .nav .btn { padding: .55rem 1.1rem; }
+
+  /* Hero: navy with an orange "road" sweeping through, like the logo */
+  .hero { position: relative; overflow: hidden; color: #fff; background: var(--navy); }
+  .hero::before { content: ""; position: absolute; top: -50%; right: 24%; width: 96px; height: 200%; transform: rotate(28deg);
+    background: repeating-linear-gradient(transparent 0 28px, rgb(255 255 255 / .85) 28px 52px) center / 5px 100% no-repeat, var(--orange); }
+  .hero .wrap { position: relative; display: grid; grid-template-columns: 1.1fr 1fr; gap: 2.5rem; align-items: center; padding-top: 4rem; padding-bottom: 4.5rem; }
+  .eyebrow { margin: 0 0 .75rem; color: var(--orange); font-weight: 600; text-transform: uppercase; letter-spacing: .12em; font-size: .85rem; }
+  .hero h1 { margin: 0; font-size: clamp(2.6rem, 6vw, 4.4rem); }
+  .hero h1 span { color: var(--orange); }
+  .hero p.lead { margin: 1.25rem 0 1.75rem; font-size: 1.15rem; color: rgb(255 255 255 / .85); max-width: 34rem; }
+  .hero .cta { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.25rem; }
+  .hero .cta small { color: rgb(255 255 255 / .7); font-size: .95rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: .5rem; margin: 2rem 0 0; padding: 0; list-style: none; }
+  .chips li { font-size: .85rem; padding: .3rem .75rem; border: 1px solid rgb(255 255 255 / .25); border-radius: 999px; color: rgb(255 255 255 / .85); }
+  .hero figure { margin: 0; position: relative; }
+  .hero figure img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 16px; border: 4px solid #fff; box-shadow: 0 24px 50px rgb(0 0 0 / .35); }
+  .hero figure figcaption { position: absolute; left: -14px; bottom: -18px; background: var(--orange); color: #fff; padding: .55rem 1rem; border-radius: 10px; font: italic 800 1.2rem 'Barlow Condensed', sans-serif; box-shadow: 0 10px 24px rgb(0 0 0 / .25); }
+
+  /* Perks */
+  .perks { background: #fff; border-bottom: 1px solid var(--line); }
+  .perks ul { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin: 0 auto; padding: 1.75rem 16px; list-style: none; }
+  .perks li { display: flex; gap: .7rem; align-items: flex-start; font-weight: 500; line-height: 1.35; }
+  .perks li::before { content: "✓"; flex: none; display: grid; place-items: center; width: 1.7rem; height: 1.7rem; border-radius: 50%; background: var(--navy); color: #fff; font-size: .9rem; font-weight: 700; }
+
+  /* Sections */
+  section.block { padding: 4rem 0; }
+  .head { margin-bottom: 1.75rem; }
+  .head h2 { margin: 0; font-size: clamp(2rem, 4vw, 2.8rem); color: var(--navy); }
+  .head p { margin: .4rem 0 0; color: var(--muted); }
+
+  /* Van cards */
+  #fleet { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+  .van { display: flex; flex-direction: column; padding: 0; overflow: hidden; text-align: left; font: inherit; color: inherit; background: #fff; border: 1px solid var(--line); border-radius: 16px; cursor: pointer; transition: transform .15s, box-shadow .15s, border-color .15s; }
+  .van:hover, .van:focus-visible { transform: translateY(-3px); border-color: var(--orange); box-shadow: 0 14px 30px rgb(27 36 85 / .12); outline: none; }
+  .van img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+  .van .body { display: flex; flex-direction: column; gap: .2rem; padding: 1rem 1.1rem 1.15rem; flex: 1; }
+  .van .tag { align-self: flex-start; font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--navy); background: #e9ebf5; padding: .15rem .55rem; border-radius: 999px; }
+  .van strong { font: italic 800 1.5rem 'Barlow Condensed', sans-serif; color: var(--navy); margin-top: .3rem; }
+  .van .desc { color: var(--muted); font-size: .92rem; }
+  .van .go { margin-top: auto; padding-top: .7rem; color: var(--orange); font-weight: 600; }
+
+  /* Steps */
+  .steps { background: var(--navy); color: #fff; }
+  .steps .head h2 { color: #fff; }
+  .steps .head p { color: rgb(255 255 255 / .7); }
+  .steps ol { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin: 0; padding: 0; list-style: none; counter-reset: s; }
+  .steps li { counter-increment: s; padding: 1.4rem; border-radius: 16px; background: rgb(255 255 255 / .06); border: 1px solid rgb(255 255 255 / .12); }
+  .steps li::before { content: counter(s); display: grid; place-items: center; width: 2.4rem; height: 2.4rem; margin-bottom: .8rem; border-radius: 50%; background: var(--orange); font: italic 800 1.3rem 'Barlow Condensed', sans-serif; }
+  .steps h3 { margin: 0 0 .3rem; font-size: 1.5rem; }
+  .steps li p { margin: 0; color: rgb(255 255 255 / .75); }
+
+  footer.site { padding: 2.5rem 0; background: #fff; border-top: 1px solid var(--line); }
+  footer.site .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; color: var(--muted); font-size: .95rem; }
+  footer.site img { height: 44px; width: auto; }
+  footer.site a { color: var(--navy); font-weight: 600; }
+
+  /* Availability dialog */
+  dialog { width: min(960px, calc(100% - 2rem)); height: min(820px, calc(100% - 2rem)); padding: 0; border: 0; border-radius: 16px; }
   dialog[open] { display: flex; flex-direction: column; }
-  dialog::backdrop { background: rgb(0 0 0 / .55); }
+  dialog::backdrop { background: rgb(18 26 64 / .6); }
   .bar { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; padding: .75rem 1rem; border-bottom: 1px solid var(--line); }
-  .bar h2 { margin: 0; font-size: 1.25rem; flex: 1; }
+  .bar h2 { margin: 0; font-size: 1.7rem; color: var(--navy); flex: 1; }
   .bar form { margin: 0; }
   .close { font: inherit; font-size: 1.25rem; line-height: 1; padding: .4rem .6rem; border: 0; border-radius: 8px; background: #f0eeeb; cursor: pointer; }
   .legend { display: flex; gap: 1rem; margin: 0; padding: 0; list-style: none; font-size: .85rem; color: var(--muted); width: 100%; }
   .legend i { display: inline-block; width: .9rem; height: .9rem; border-radius: 3px; vertical-align: -2px; margin-right: .3rem; }
-  .legend .free { background: var(--free); } .legend .booked { background: var(--booked); } .legend .sel { background: var(--accent); }
+  .legend .free { background: var(--free); } .legend .booked { background: var(--booked); } .legend .sel { background: var(--orange); }
 
   #grid { flex: 1; min-height: 0; overflow: auto; display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); align-content: start; padding: 1rem; }
-  #grid h3 { margin: 0 0 .4rem; font-size: 1rem; }
+  #grid h3 { margin: 0 0 .4rem; font-size: 1.2rem; color: var(--navy); }
   .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
   .days b { font-size: .7rem; color: var(--muted); text-align: center; }
   .days button { aspect-ratio: 1; padding: 0; border: 0; border-radius: 6px; font: inherit; font-size: .85rem; background: var(--free); color: var(--free-ink); cursor: pointer; }
-  .days button:not(:disabled):hover { outline: 2px solid var(--accent); }
+  .days button:not(:disabled):hover { outline: 2px solid var(--orange); }
   .days button:disabled { cursor: not-allowed; background: none; color: #c4c4c4; }
   .days button.booked { background: var(--booked); color: #8a8a8a; text-decoration: line-through; }
-  .days button.sel { background: var(--accent); color: #fff; }
+  .days button.sel { background: var(--orange); color: #fff; }
   .days button.sel.booked { background: var(--clash); color: #fff; }
 
   .foot { border-top: 1px solid var(--line); border-bottom: 0; }
   #summary { margin: 0; flex: 1 1 260px; }
   #summary.error { color: var(--clash); font-weight: 600; }
-  #send { font: inherit; padding: .55rem .75rem; border-radius: 8px; border: 1px solid var(--line); background: #fff; }
-  #send { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; cursor: pointer; }
 
+  @media (max-width: 860px) {
+    .hero .wrap { grid-template-columns: 1fr; padding-top: 2.5rem; padding-bottom: 3.5rem; }
+    .hero::before { right: 6%; width: 64px; opacity: .55; }
+    .perks ul { grid-template-columns: 1fr 1fr; }
+    .steps ol { grid-template-columns: 1fr; }
+  }
   @media (max-width: 640px) {
+    .nav .wrap { height: 62px; }
+    .nav img { height: 44px; }
+    .hero figure figcaption { left: 10px; }
+    #fleet { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 78%; gap: .9rem; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -16px; padding: 4px 16px 14px; scroll-padding: 0 16px; }
+    .van { scroll-snap-align: start; }
+    .perks ul { grid-template-columns: 1fr; gap: .9rem; }
+    section.block { padding: 3rem 0; }
     dialog { width: 100%; height: 100%; max-width: none; max-height: none; border-radius: 0; }
     #summary { flex-basis: 100%; }
-    #send { flex: 1; }
+    .foot .btn { flex: 1; }
   }
 </style>
 </head>
 <body>
-<header>
-  <h1>Africar Rentals</h1>
-  <p>Monthly van hire in Perth, WA · Minimum hire 28 days</p>
+<header class="nav">
+  <div class="wrap">
+    <a href="#top"><img src="img/logo.png" alt="Africar Rentals" width="352" height="197"></a>
+    <a class="btn" href="#vans">Enquire now</a>
+  </div>
 </header>
 
-<main>
-  <h2>Choose a van</h2>
-  <div id="vans"></div>
-</main>
+<section class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Perth metro · Long-term van hire</p>
+      <h1>Your long-term van hire <span>specialists</span> in Perth</h1>
+      <p class="lead">From courier drivers to all trades. Well-maintained 1-tonne and 2-tonne vans on flexible monthly terms, with insurance, rego and servicing all included.</p>
+      <div class="cta">
+        <a class="btn" href="#vans">Check availability</a>
+        <small>Minimum hire 28 days</small>
+      </div>
+      <ul class="chips">
+        <li>Couriers &amp; delivery</li><li>Trades &amp; equipment</li><li>Small business logistics</li><li>Moving &amp; removals</li>
+      </ul>
+    </div>
+    <figure>
+      <img src="img/fleet.jpg" alt="Two white Africar Rentals vans parked in Perth" width="486" height="218">
+      <figcaption>1-tonne &amp; 2-tonne vans</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="perks">
+  <ul class="wrap">
+    <li>Insurance, rego &amp; servicing included</li>
+    <li>Flexible monthly rental terms</li>
+    <li>Servicing all Perth metro areas</li>
+    <li>Regularly serviced, roadworthy vans</li>
+  </ul>
+</section>
+
+<section class="block" id="vans">
+  <div class="wrap">
+    <div class="head">
+      <h2>Choose your van</h2>
+      <p>Tap a van to see when it's free over the next 12 months.</p>
+    </div>
+    <div id="fleet"></div>
+  </div>
+</section>
+
+<section class="block steps">
+  <div class="wrap">
+    <div class="head">
+      <h2>How it works</h2>
+      <p>No account, no payment online. Just an enquiry.</p>
+    </div>
+    <ol>
+      <li><h3>Pick a van</h3><p>1-tonne for couriers and deliveries, 2-tonne for trades and removals.</p></li>
+      <li><h3>Choose your dates</h3><p>Tap a free start date. Hire runs 28 days minimum; tap a later date to stay longer.</p></li>
+      <li><h3>Send your enquiry</h3><p>We'll get back to you with a quote and confirm the booking.</p></li>
+    </ol>
+  </div>
+</section>
 
 <footer class="site">
-  <a href="https://www.facebook.com/share/1A5Ek22cQa/" target="_blank" rel="noopener">Find us on Facebook</a>
+  <div class="wrap">
+    <img src="img/logo.png" alt="Africar Rentals" width="352" height="197">
+    <span>Long-term van hire · Perth, WA</span>
+    <a href="https://www.facebook.com/share/1A5Ek22cQa/" target="_blank" rel="noopener">Find us on Facebook</a>
+  </div>
 </footer>
 
 <dialog id="cal" aria-labelledby="van-name">
@@ -86,7 +218,7 @@
   <div id="grid"></div>
   <div class="bar foot">
     <p id="summary" aria-live="polite"></p>
-    <button id="send" type="button">Send inquiry</button>
+    <button id="send" class="btn" type="button">Send enquiry</button>
   </div>
 </dialog>
 

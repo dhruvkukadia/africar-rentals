@@ -1,14 +1,16 @@
 // ── EDIT HERE ────────────────────────────────────────────────────────────
 // Booked periods per van as ["first day", "return day"] in YYYY-MM-DD, both
 // inclusive. These days show greyed out and can't be picked.
-const CONTACT_EMAIL = 'bookings@africarrentals.example'; // replace with the real inbox
+const CONTACT_EMAIL = 'dhruvkukadia25@gmail.com'; // temporary: switch to info@africarrentals.com.au
 const MIN_DAYS = 28;
-const VANS = [ // replace names/descriptions with the real fleet
-  { name: 'Van 1', desc: 'Panel van · 3 seats', booked: [['2026-11-01', '2027-01-31']] },
-  { name: 'Van 2', desc: 'Panel van · 3 seats', booked: [] },
-  { name: 'Van 3', desc: 'Long wheelbase · 3 seats', booked: [['2026-12-10', '2027-03-10'], ['2027-06-01', '2027-08-01']] },
-  { name: 'Van 4', desc: 'Long wheelbase · 3 seats', booked: [['2027-02-15', '2027-05-15']] },
-  { name: 'Van 5', desc: 'Crew van · 6 seats', booked: [['2026-11-20', '2026-12-20']] },
+const ONE_T = { type: '1-tonne', desc: 'Mid-size van. Great for couriers and deliveries.', img: 'img/van-1t.jpg' };
+const TWO_T = { type: '2-tonne', desc: 'High-roof large van. Great for trades and removals.', img: 'img/van-2t.jpg' };
+const VANS = [ // replace names (e.g. "Mitsubishi Express") and booked dates with the real fleet
+  { name: 'Van 1', ...ONE_T, booked: [['2026-11-01', '2027-01-31']] },
+  { name: 'Van 2', ...ONE_T, booked: [] },
+  { name: 'Van 3', ...ONE_T, booked: [['2026-12-10', '2027-03-10'], ['2027-06-01', '2027-08-01']] },
+  { name: 'Van 4', ...TWO_T, booked: [['2027-02-15', '2027-05-15']] },
+  { name: 'Van 5', ...TWO_T, booked: [['2026-11-20', '2026-12-20']] },
 ];
 // ─────────────────────────────────────────────────────────────────────────
 
@@ -30,16 +32,16 @@ function init() {
   const fmt = (s, o = { day: 'numeric', month: 'short', year: 'numeric' }) => fromIso(s).toLocaleDateString('en-AU', o);
   let van, start, end, picking; // picking = return date is still the 28-day default
 
-  $('#vans').innerHTML = VANS.map((v, i) =>
-    `<button class="van" data-i="${i}"><span class="icon" aria-hidden="true">🚐</span><strong>${v.name}</strong><span>${v.desc}</span><em>Check dates →</em></button>`
+  $('#fleet').innerHTML = VANS.map((v, i) =>
+    `<button class="van" data-i="${i}"><img src="${v.img}" alt="" loading="lazy"><span class="body"><span class="tag">${v.type}</span><strong>${v.name}</strong><span class="desc">${v.desc}</span><span class="go">Check dates →</span></span></button>`
   ).join('');
 
-  $('#vans').onclick = e => {
+  $('#fleet').onclick = e => {
     const b = e.target.closest('.van');
     if (!b) return;
     van = VANS[b.dataset.i];
     start = end = null;
-    $('#van-name').textContent = van.name;
+    $('#van-name').textContent = `${van.name} · ${van.type}`;
     render();
     update();
     dlg.showModal();
@@ -91,8 +93,8 @@ function init() {
   // Never disabled: a press always either sends or says what's missing.
   send.onclick = () => {
     if (!update(start ? null : 'Tap a start date on the calendar first.')) return;
-    const body = `Hi Africar Rentals,\n\nI'd like to hire ${van.name}.\nStart: ${fmt(start)}\nReturn: ${fmt(end)}\nDuration: ${daysBetween(start, end)} days\n\nName:\nPhone:\n`;
-    location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`Van hire inquiry – ${van.name}`)}&body=${encodeURIComponent(body)}`;
+    const body = `Hi Africar Rentals,\n\nI'd like to hire ${van.name} (${van.type}).\nStart: ${fmt(start)}\nReturn: ${fmt(end)}\nDuration: ${daysBetween(start, end)} days\n\nName:\nPhone:\n`;
+    location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`Van hire enquiry – ${van.name} (${van.type})`)}&body=${encodeURIComponent(body)}`;
   };
 }
 
