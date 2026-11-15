@@ -28,7 +28,7 @@ function init() {
   const $ = s => document.querySelector(s);
   const dlg = $('#cal'), grid = $('#grid'), send = $('#send'), summary = $('#summary');
   const fmt = (s, o = { day: 'numeric', month: 'short', year: 'numeric' }) => fromIso(s).toLocaleDateString('en-AU', o);
-  let van, start, end;
+  let van, start, end, picking; // picking = return date is still the 28-day default
 
   $('#vans').innerHTML = VANS.map((v, i) =>
     `<button class="van" data-i="${i}"><span class="icon" aria-hidden="true">🚐</span><strong>${v.name}</strong><span>${v.desc}</span><em>Check dates →</em></button>`
@@ -66,29 +66,31 @@ function init() {
   }
 
   function update(note) {
-    const clash = end && clashes(van, start, end);
-    const err = note || (clash && `${fmt(start)} → ${fmt(end)} overlaps an existing hire. Tap a new start date.`);
+    const clash = start && clashes(van, start, end);
+    const err = note || (clash && `${fmt(start)} → ${fmt(end)} overlaps an existing hire. Pick a different start date.`);
     grid.querySelectorAll('[data-day]').forEach(b =>
-      b.classList.toggle('sel', !!start && b.dataset.day >= start && b.dataset.day <= (end || start)));
-    send.disabled = !end || clash;
+      b.classList.toggle('sel', !!start && b.dataset.day >= start && b.dataset.day <= end));
     summary.classList.toggle('error', !!err);
     summary.textContent = err || (!start ? `Tap your start date. Minimum hire ${MIN_DAYS} days.`
-      : !end ? `Start ${fmt(start)}. Now tap your return date (${fmt(addDays(start, MIN_DAYS))} or later).`
-      : `${fmt(start)} → return ${fmt(end)} · ${daysBetween(start, end)} days`);
+      : `${fmt(start)} → return ${fmt(end)} · ${daysBetween(start, end)} days. `
+        + (picking ? 'Tap a later date to stay longer.' : 'Tap any date to start again.'));
+    return !!start && !clash;
   }
 
-  // 1st tap = start, 2nd tap = return; once both are set, the next tap starts over.
+  // 1st tap = start with a 28-day default return; a later tap (28+ days out)
+  // moves the return date; once moved, the next tap starts over.
   grid.onclick = e => {
     const b = e.target.closest('[data-day]');
     if (!b || b.disabled) return;
     const day = b.dataset.day;
-    if (!start || end || day <= start) { start = day; end = null; }
-    else if (daysBetween(start, day) < MIN_DAYS) return update(`Minimum hire is ${MIN_DAYS} days. Earliest return is ${fmt(addDays(start, MIN_DAYS))}.`);
-    else end = day;
+    if (!start || !picking || clashes(van, start, end) || day < addDays(start, MIN_DAYS)) { start = day; end = addDays(day, MIN_DAYS); picking = true; }
+    else { end = day; picking = false; }
     update();
   };
 
+  // Never disabled: a press always either sends or says what's missing.
   send.onclick = () => {
+    if (!update(start ? null : 'Tap a start date on the calendar first.')) return;
     const body = `Hi Africar Rentals,\n\nI'd like to hire ${van.name}.\nStart: ${fmt(start)}\nReturn: ${fmt(end)}\nDuration: ${daysBetween(start, end)} days\n\nName:\nPhone:\n`;
     location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`Van hire inquiry – ${van.name}`)}&body=${encodeURIComponent(body)}`;
   };
