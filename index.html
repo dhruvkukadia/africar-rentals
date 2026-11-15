@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Africar Rentals · Monthly Van Hire, Perth</title>
-<meta name="description" content="Monthly van hire in Perth, WA. Minimum 1 month. Check van availability and send an inquiry.">
+<meta name="description" content="Monthly van hire in Perth, WA. Minimum 28 days. Check van availability and send an inquiry.">
 <style>
   :root { --accent: #d9661f; --ink: #1d1d1f; --muted: #6b6b6b; --line: #e4e1dc; --free: #e6f4e7; --free-ink: #1b5e20; --booked: #d9d9d9; --clash: #c62828; }
   * { box-sizing: border-box; }
@@ -48,22 +48,21 @@
   .foot { border-top: 1px solid var(--line); border-bottom: 0; }
   #summary { margin: 0; flex: 1 1 260px; }
   #summary.error { color: var(--clash); font-weight: 600; }
-  .foot select, #send { font: inherit; padding: .55rem .75rem; border-radius: 8px; border: 1px solid var(--line); background: #fff; }
+  #send { font: inherit; padding: .55rem .75rem; border-radius: 8px; border: 1px solid var(--line); background: #fff; }
   #send { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; cursor: pointer; }
   #send:disabled { opacity: .45; cursor: not-allowed; }
 
   @media (max-width: 640px) {
     dialog { width: 100%; height: 100%; max-width: none; max-height: none; border-radius: 0; }
     #summary { flex-basis: 100%; }
-    .foot label { flex: 1; display: flex; align-items: center; gap: .5rem; white-space: nowrap; }
-    .foot select { flex: 1; }
+    #send { flex: 1; }
   }
 </style>
 </head>
 <body>
 <header>
   <h1>Africar Rentals</h1>
-  <p>Monthly van hire in Perth, WA · Minimum hire 1 month</p>
+  <p>Monthly van hire in Perth, WA · Minimum hire 28 days</p>
 </header>
 
 <main>
@@ -88,7 +87,6 @@
   <div id="grid"></div>
   <div class="bar foot">
     <p id="summary" aria-live="polite"></p>
-    <label>Hire for <select id="months"></select></label>
     <button id="send" type="button">Send inquiry</button>
   </div>
 </dialog>
