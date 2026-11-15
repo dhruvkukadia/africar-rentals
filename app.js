@@ -41,6 +41,8 @@ function init() {
     if (!b) return;
     van = VANS[b.dataset.i];
     start = end = null;
+    details.reset();
+    show('dates');
     $('#van-name').textContent = `${van.name} · ${van.type}`;
     render();
     update();
@@ -90,11 +92,51 @@ function init() {
     update();
   };
 
-  // Never disabled: a press always either sends or says what's missing.
+  // Steps inside the dialog: dates → details → thanks.
+  const details = $('#details'), submit = $('#submit'), formError = $('#form-error');
+  const show = step => dlg.querySelectorAll('[data-step]').forEach(el => { el.hidden = el.dataset.step !== step; });
+  const picked = () => `${van.name} (${van.type}) · ${fmt(start)} → ${fmt(end)} · ${daysBetween(start, end)} days`;
+  const subject = () => `Van hire enquiry – ${van.name} (${van.type})`;
+
+  // Never disabled: a press always either moves on or says what's missing.
   send.onclick = () => {
     if (!update(start ? null : 'Tap a start date on the calendar first.')) return;
-    const body = `Hi Africar Rentals,\n\nI'd like to hire ${van.name} (${van.type}).\nStart: ${fmt(start)}\nReturn: ${fmt(end)}\nDuration: ${daysBetween(start, end)} days\n\nName:\nPhone:\n`;
-    location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`Van hire enquiry – ${van.name} (${van.type})`)}&body=${encodeURIComponent(body)}`;
+    $('#picked').textContent = picked();
+    formError.textContent = '';
+    show('details');
+    details.elements.name.focus();
+  };
+  $('#back').onclick = () => show('dates');
+
+  details.onsubmit = async e => {
+    e.preventDefault();
+    const f = Object.fromEntries(new FormData(details));
+    submit.disabled = true;
+    submit.textContent = 'Sending…';
+    formError.textContent = '';
+    try {
+      const r = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ ...f, van: `${van.name} (${van.type})`, start: fmt(start), return: fmt(end),
+          days: daysBetween(start, end), _subject: subject(), _template: 'table' }),
+      });
+      const data = await r.json();
+      if (String(data.success) !== 'true') throw new Error(data.message || `HTTP ${r.status}`);
+      $('#thanks-msg').textContent = `Thanks ${f.name.split(' ')[0]}, we've got your enquiry for ${picked()}. We'll call or text you on ${f.phone} soon.`;
+      show('thanks');
+    } catch (x) {
+      // Don't lose the enquiry: offer a pre-filled email as a fallback.
+      const body = `${picked()}\n\nName: ${f.name}\nPhone: ${f.phone}\nEmail: ${f.email}\n\n${f.message}`;
+      const a = Object.assign(document.createElement('a'), {
+        href: `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject())}&body=${encodeURIComponent(body)}`,
+        textContent: 'email it to us instead',
+      });
+      formError.replaceChildren(`Sorry, that didn't send (${x.message}). Try again, or `, a, '.');
+    } finally {
+      submit.disabled = false;
+      submit.textContent = 'Submit enquiry';
+    }
   };
 }
 

@@ -112,6 +112,24 @@
   .days button.sel.booked { background: var(--clash); color: #fff; }
 
   .foot { border-top: 1px solid var(--line); border-bottom: 0; }
+  [hidden] { display: none !important; }
+  .panel { flex: 1; min-height: 0; overflow: auto; display: flex; flex-direction: column; gap: .9rem; width: 100%; max-width: 560px; margin: 0 auto; padding: 1.25rem 16px 1.5rem; }
+  .panel label { display: flex; flex-direction: column; gap: .3rem; font-weight: 600; color: var(--navy); }
+  .panel label small { font-size: inherit; font-weight: 400; color: var(--muted); }
+  .panel input, .panel textarea { font: inherit; padding: .7rem .8rem; border: 1px solid #cfccc6; border-radius: 10px; background: #fff; color: var(--ink); }
+  .panel input:focus, .panel textarea:focus { outline: 2px solid var(--orange); border-color: transparent; }
+  .picked { margin: 0; padding: .8rem 1rem; border-radius: 10px; background: #e9ebf5; color: var(--navy); font-weight: 600; }
+  .actions { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .link { font: inherit; padding: .5rem 0; border: 0; background: none; color: var(--muted); cursor: pointer; }
+  .btn:disabled { opacity: .6; cursor: progress; }
+  .error { margin: 0; color: var(--clash); font-weight: 600; }
+  .error:empty { display: none; }
+  .error a { color: inherit; }
+  .hp { position: absolute; left: -9999px; }
+  #thanks { align-items: center; justify-content: center; text-align: center; }
+  #thanks h3 { margin: 0; font-size: 2.2rem; color: var(--navy); }
+  #thanks p { margin: 0; color: var(--muted); max-width: 28rem; }
+  .tick { display: grid; place-items: center; width: 4.5rem; height: 4.5rem; border-radius: 50%; background: var(--free); color: var(--free-ink); font-size: 2.2rem; font-weight: 700; }
   #summary { margin: 0; flex: 1 1 260px; }
   #summary.error { color: var(--clash); font-weight: 600; }
 
@@ -192,7 +210,7 @@
     <ol>
       <li><h3>Pick a van</h3><p>1-tonne for couriers and deliveries, 2-tonne for trades and removals.</p></li>
       <li><h3>Choose your dates</h3><p>Tap a free start date. Hire runs 28 days minimum; tap a later date to stay longer.</p></li>
-      <li><h3>Send your enquiry</h3><p>We'll get back to you with a quote and confirm the booking.</p></li>
+      <li><h3>Send your enquiry</h3><p>Leave your name and number and we'll get back to you with a quote.</p></li>
     </ol>
   </div>
 </section>
@@ -209,16 +227,37 @@
   <div class="bar">
     <h2 id="van-name"></h2>
     <form method="dialog"><button class="close" aria-label="Close">✕</button></form>
-    <ul class="legend">
+    <ul class="legend" data-step="dates">
       <li><i class="free"></i>Available</li>
       <li><i class="booked"></i>On hire</li>
       <li><i class="sel"></i>Your dates</li>
     </ul>
   </div>
-  <div id="grid"></div>
-  <div class="bar foot">
+  <div id="grid" data-step="dates"></div>
+  <div class="bar foot" data-step="dates">
     <p id="summary" aria-live="polite"></p>
-    <button id="send" class="btn" type="button">Send enquiry</button>
+    <button id="send" class="btn" type="button">Enquire →</button>
+  </div>
+
+  <form id="details" class="panel" data-step="details" hidden>
+    <p class="picked" id="picked"></p>
+    <label>Name <input name="name" required autocomplete="name"></label>
+    <label>Phone <input name="phone" type="tel" required autocomplete="tel" placeholder="04xx xxx xxx"></label>
+    <label><span>Email <small>(optional)</small></span><input name="email" type="email" autocomplete="email"></label>
+    <label><span>Anything else? <small>(optional)</small></span><textarea name="message" rows="3" placeholder="e.g. what you'll use the van for"></textarea></label>
+    <input name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <p id="form-error" class="error" role="alert"></p>
+    <div class="actions">
+      <button type="button" class="link" id="back">← Change dates</button>
+      <button class="btn" id="submit">Submit enquiry</button>
+    </div>
+  </form>
+
+  <div id="thanks" class="panel" data-step="thanks" hidden>
+    <div class="tick" aria-hidden="true">✓</div>
+    <h3>Thanks for your enquiry!</h3>
+    <p id="thanks-msg"></p>
+    <form method="dialog"><button class="btn">Done</button></form>
   </div>
 </dialog>
 
