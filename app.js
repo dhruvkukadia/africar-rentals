@@ -3,8 +3,8 @@
 // inclusive. These days show greyed out and can't be picked.
 const CONTACT_EMAIL = 'dhruvkukadia25@gmail.com'; // temporary: switch to info@africarrentals.com.au
 const MIN_DAYS = 28;
-const ONE_T = { type: '1-tonne', desc: 'Mid-size van. Great for couriers and deliveries.', img: 'img/van-1t.jpg' };
-const TWO_T = { type: '2-tonne', desc: 'High-roof large van. Great for trades and removals.', img: 'img/van-2t.jpg' };
+const ONE_T = { type: '1-tonne', size: '1t', desc: 'Mid-size. Made for courier runs and deliveries.' };
+const TWO_T = { type: '2-tonne', size: '2t', desc: 'High roof. Made for trades and removals.' };
 const VANS = [ // replace names (e.g. "Mitsubishi Express") and booked dates with the real fleet
   { name: 'Van 1', ...ONE_T, booked: [['2026-11-01', '2027-01-31']] },
   { name: 'Van 2', ...ONE_T, booked: [] },
@@ -32,9 +32,18 @@ function init() {
   const fmt = (s, o = { day: 'numeric', month: 'short', year: 'numeric' }) => fromIso(s).toLocaleDateString('en-AU', o);
   let van, start, end, picking; // picking = return date is still the 28-day default
 
-  $('#fleet').innerHTML = VANS.map((v, i) =>
-    `<button class="van" data-i="${i}"><img src="${v.img}" alt="" loading="lazy"><span class="body"><span class="tag">${v.type}</span><strong>${v.name}</strong><span class="desc">${v.desc}</span><span class="go">Check dates →</span></span></button>`
-  ).join('');
+  // Van tiles go before the static "How it works" tile; a click anywhere on a tile opens its calendar.
+  $('#fleet').insertAdjacentHTML('afterbegin', VANS.map((v, i) =>
+    `<article class="tile van${v.size === '2t' ? ' dark' : ''}" data-i="${i}">
+      <div class="copy"><span class="tag">${v.type}</span><h3>${v.name}</h3><p>${v.desc}</p><button class="btn" type="button">Check dates</button></div>
+      <svg class="art" viewBox="0 0 700 580" preserveAspectRatio="xMidYMax meet" aria-hidden="true"><text class="glyph" x="664" y="330" text-anchor="end">${v.size.toUpperCase()}</text><use href="#van-${v.size}" y="270" width="700" height="292"/></svg>
+    </article>`
+  ).join(''));
+  $('#mock').innerHTML = '<i></i>'.repeat(35);
+  document.querySelector('.paddles').onclick = e => {
+    const dir = e.target.dataset.dir, strip = $('#strip');
+    if (dir) strip.scrollBy({ left: dir * strip.clientWidth * .8, behavior: 'smooth' });
+  };
 
   $('#fleet').onclick = e => {
     const b = e.target.closest('.van');
