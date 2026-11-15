@@ -63,6 +63,8 @@ with `system-ui` as fallback.
   a giant `1T`/`2T` behind the van illustration. `.tile.dark` for 2-tonne vans,
   `.tile.how` (orange) for the steps.
 - **Card** `.card`: navy, giant faint word, van illustration, caption bottom left.
+- **Section heading** `.head`: centred h2 plus one line, above the van tiles.
+- **Questions** `#faq`: native `<details>` rows with hairlines; answers in muted text.
 - **Dialog** `#cal`: calendar → details form → thank-you. Behaviour lives in `app.js`.
 - **Van illustrations**: two SVG symbols, `#van-1t` and `#van-2t`, defined once at
   the top of `index.html` and reused with `<use>`.

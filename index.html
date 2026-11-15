@@ -3,11 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Africar Rentals · Long-Term Van Hire Perth</title>
-<meta name="description" content="Long-term van hire in Perth, WA. 1-tonne and 2-tonne vans on flexible monthly terms with insurance, rego and servicing included. Check availability and enquire online.">
-<meta property="og:title" content="Africar Rentals · Long-term van hire in Perth">
+<!-- When the site moves to its own domain, replace https://dhruvkukadia.github.io/africar-rentals/ everywhere in this file. -->
+<title>Van Hire Perth | Long-Term Van Rental | Africar Rentals</title>
+<meta name="description" content="Long-term van hire in Perth from 28 days. 1-tonne and 2-tonne vans for couriers and trades, with insurance, rego and servicing included. Check dates online.">
+<link rel="canonical" href="https://dhruvkukadia.github.io/africar-rentals/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dhruvkukadia.github.io/africar-rentals/">
+<meta property="og:title" content="Van Hire Perth | Long-Term Van Rental | Africar Rentals">
 <meta property="og:description" content="1-tonne and 2-tonne vans on flexible monthly terms. Insurance, rego and servicing included.">
 <meta property="og:image" content="https://dhruvkukadia.github.io/africar-rentals/img/fleet.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AutoRental",
+  "name": "Africar Rentals",
+  "description": "Long-term van hire in Perth, Western Australia. 1-tonne and 2-tonne vans on flexible monthly terms, with insurance, registration and servicing included.",
+  "url": "https://dhruvkukadia.github.io/africar-rentals/",
+  "logo": "https://dhruvkukadia.github.io/africar-rentals/img/logo.png",
+  "image": "https://dhruvkukadia.github.io/africar-rentals/img/fleet.jpg",
+  "address": { "@type": "PostalAddress", "addressLocality": "Perth", "addressRegion": "WA", "addressCountry": "AU" },
+  "areaServed": { "@type": "City", "name": "Perth" },
+  "sameAs": ["https://www.facebook.com/people/Africar-Rentals/100086315358950/"]
+}
+</script>
 <link rel="icon" href="img/icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -98,6 +116,19 @@
   .tile.how li::before { content: counter(s); display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--navy-deep); color: #fff; font-weight: 600; }
   .tile.how li b { display: block; font-weight: 600; }
 
+  .head { text-align: center; padding: 52px 20px 28px; }
+  .head .sub { font-size: 28px; line-height: 1.2; margin-top: 8px; }
+
+  #faq { padding: 8px 20px 80px; gap: 0; justify-items: center; }
+  #faq h2 { text-align: center; }
+  .qa { width: min(820px, 100%); margin-top: 36px; border-bottom: 1px solid var(--line); }
+  .qa details { border-top: 1px solid var(--line); }
+  .qa summary { display: flex; justify-content: space-between; gap: 16px; padding: 20px 0; font-size: 21px; font-weight: 600; cursor: pointer; list-style: none; }
+  .qa summary::-webkit-details-marker { display: none; }
+  .qa summary::after { content: "+"; font-weight: 400; color: var(--muted); }
+  .qa details[open] summary::after { content: "–"; }
+  .qa p { padding: 0 40px 22px 0; color: var(--muted); max-width: 64ch; }
+
   /* Use cases: one row of big cards you swipe sideways */
   #work { padding: 64px 0; gap: 0; }
   #work h2 { text-align: center; padding: 0 20px; }
@@ -170,7 +201,7 @@
 
   @media (max-width: 1068px) {
     h1, h2 { font-size: 48px; }
-    .band .sub { font-size: 24px; }
+    .band .sub, .head .sub { font-size: 24px; }
     .split { gap: 40px; }
     .tile { padding: 36px 30px; }
   }
@@ -180,7 +211,9 @@
     .nav .in { gap: 16px; }
     .nav .links { display: none; }
     .band { min-height: 0; padding-top: 44px; }
-    .band .sub { font-size: 21px; }
+    .band .sub, .head .sub { font-size: 21px; }
+    .head { padding: 36px 20px 20px; }
+    .qa summary { font-size: 19px; }
     .hero-art { height: auto; aspect-ratio: 1320 / 420; margin-top: 36px; }
     .split { flex-direction: column; padding: 44px 20px; gap: 32px; }
     .photos { width: 100%; }
@@ -269,14 +302,14 @@
 <main id="top">
   <section>
     <div class="band">
-      <h1>Long-term van hire.</h1>
-      <p class="sub">For Perth's couriers, tradies and small businesses.</p>
+      <h1>Long-term van hire in Perth.</h1>
+      <p class="sub">For couriers, tradies and small businesses.</p>
       <div class="cta">
         <a class="btn" href="#vans">Check availability</a>
         <a class="btn ghost" href="#how">How it works</a>
       </div>
       <p class="note">1-tonne and 2-tonne vans · Minimum hire 28 days</p>
-      <svg class="art hero-art" viewBox="0 0 1320 420" preserveAspectRatio="xMidYMax meet" role="img" aria-label="Illustration of a 2-tonne and a 1-tonne Africar van at sunset">
+      <svg class="art hero-art" viewBox="0 0 1320 420" preserveAspectRatio="xMidYMax meet" role="img" aria-label="Illustration of a 2-tonne van and a 1-tonne van for hire from Africar Rentals">
         <circle cx="660" cy="384" r="300" fill="url(#g-sun)" clip-path="url(#c-horizon)"/>
         <rect x="40" y="384" width="1240" height="2" rx="1" fill="#1b2455" opacity=".18"/>
         <use href="#van-2t" x="0" y="120" width="720" height="300"/>
@@ -296,9 +329,9 @@
         <div class="cta"><a class="btn" href="#vans">See the vans</a></div>
       </div>
       <div class="photos">
-        <img src="img/fleet.jpg" alt="Two Africar Rentals vans parked in Perth" width="486" height="218" loading="lazy">
-        <img src="img/van-2t.jpg" alt="An Africar Rentals high-roof van" width="387" height="218" loading="lazy">
-        <img src="img/van-1t.jpg" alt="An Africar Rentals mid-size van" width="432" height="186" loading="lazy">
+        <img src="img/fleet.jpg" alt="Two Africar Rentals vans for hire, parked in Perth" width="486" height="218" loading="lazy">
+        <img src="img/van-2t.jpg" alt="2-tonne high-roof van for long-term hire in Perth" width="387" height="218" loading="lazy">
+        <img src="img/van-1t.jpg" alt="1-tonne mid-size van for long-term hire in Perth" width="432" height="186" loading="lazy">
       </div>
     </div>
 
@@ -310,7 +343,11 @@
     </div>
   </section>
 
-  <section id="vans" aria-label="Choose your van">
+  <section id="vans">
+    <div class="head">
+      <h2>Vans for hire in Perth.</h2>
+      <p class="sub">1-tonne and 2-tonne. Tap a van to see its free dates.</p>
+    </div>
     <div id="fleet">
       <article class="tile how" id="how">
         <div class="copy">
@@ -331,27 +368,65 @@
       <article class="card">
         <div class="word" aria-hidden="true">Couriers</div>
         <svg viewBox="0 0 720 300" aria-hidden="true"><use href="#van-1t"/></svg>
-        <div class="copy"><h3>Couriers &amp; delivery</h3><p>Daily runs right across the Perth metro area.</p><a class="btn" href="#vans">Check availability</a></div>
+        <div class="copy"><h3>Courier van hire</h3><p>Daily runs right across the Perth metro area.</p><a class="btn" href="#vans">Check availability</a></div>
       </article>
       <article class="card">
         <div class="word" aria-hidden="true">Trades</div>
         <svg viewBox="0 0 720 300" aria-hidden="true"><use href="#van-2t"/></svg>
-        <div class="copy"><h3>Trades</h3><p>Room for the tools, the gear and the materials.</p><a class="btn" href="#vans">Check availability</a></div>
+        <div class="copy"><h3>Van hire for trades</h3><p>Room for the tools, the gear and the materials.</p><a class="btn" href="#vans">Check availability</a></div>
       </article>
       <article class="card">
         <div class="word" aria-hidden="true">Business</div>
         <svg viewBox="0 0 720 300" aria-hidden="true"><use href="#van-1t"/></svg>
-        <div class="copy"><h3>Small business</h3><p>A reliable van on flexible monthly terms.</p><a class="btn" href="#vans">Check availability</a></div>
+        <div class="copy"><h3>Small business van hire</h3><p>A reliable van on flexible monthly terms.</p><a class="btn" href="#vans">Check availability</a></div>
       </article>
       <article class="card">
         <div class="word" aria-hidden="true">Removals</div>
         <svg viewBox="0 0 720 300" aria-hidden="true"><use href="#van-2t"/></svg>
-        <div class="copy"><h3>Moving &amp; removals</h3><p>Space for the big jobs. The 2-tonne takes them.</p><a class="btn" href="#vans">Check availability</a></div>
+        <div class="copy"><h3>Vans for removalists</h3><p>Space for the big jobs. The 2-tonne takes them.</p><a class="btn" href="#vans">Check availability</a></div>
       </article>
     </div>
     <div class="paddles">
       <button type="button" data-dir="-1" aria-label="Previous">‹</button>
       <button type="button" data-dir="1" aria-label="Next">›</button>
+    </div>
+  </section>
+
+  <section id="faq">
+    <h2>Van hire questions, answered.</h2>
+    <div class="qa">
+      <details>
+        <summary>How long can I hire a van for?</summary>
+        <p>The minimum hire is 28 days. After that, keep the van for as long as you need it on flexible monthly terms.</p>
+      </details>
+      <details>
+        <summary>Do you do daily or weekend van hire?</summary>
+        <p>No. Africar Rentals specialises in long-term van hire in Perth, starting from 28 days.</p>
+      </details>
+      <details>
+        <summary>What's included in the hire?</summary>
+        <p>Insurance, registration and servicing are included with every van. The vans are regularly serviced and roadworthy.</p>
+      </details>
+      <details>
+        <summary>What size vans can I hire?</summary>
+        <p>1-tonne mid-size vans, which suit courier runs and deliveries, and 2-tonne high-roof vans, which suit trades, removals and bigger loads.</p>
+      </details>
+      <details>
+        <summary>How much does long-term van hire cost in Perth?</summary>
+        <p>It depends on the van and how long you need it. Pick a van, choose your dates and send an enquiry, and we'll come back to you with a quote.</p>
+      </details>
+      <details>
+        <summary>Can I hire a van for courier or delivery work?</summary>
+        <p>Yes. Our vans suit courier and delivery drivers, trades, removalists and small businesses that need a reliable van long term.</p>
+      </details>
+      <details>
+        <summary>Which parts of Perth do you cover?</summary>
+        <p>We service all Perth metro areas.</p>
+      </details>
+      <details>
+        <summary>How do I book a van?</summary>
+        <p>Choose a van above, tap your start date on its calendar and send an enquiry with your name and phone number. We'll call or text you to confirm. Nothing is paid online.</p>
+      </details>
     </div>
   </section>
 </main>
@@ -361,8 +436,8 @@
     <div class="cols">
       <div><img src="img/logo.png" alt="Africar Rentals" width="352" height="197"></div>
       <div><b>Vans</b><a href="#vans">1-tonne vans</a><a href="#vans">2-tonne vans</a><a href="#vans">Check availability</a></div>
-      <div><b>Hiring</b><a href="#how">How it works</a><a href="#included">What's included</a><a href="#work">Who it's for</a></div>
-      <div><b>Contact</b><a href="#vans">Send an enquiry</a><a href="https://www.facebook.com/share/1A5Ek22cQa/" target="_blank" rel="noopener">Facebook</a></div>
+      <div><b>Hiring</b><a href="#how">How it works</a><a href="#included">What's included</a><a href="#work">Who it's for</a><a href="#faq">Questions</a></div>
+      <div><b>Contact</b><a href="#vans">Send an enquiry</a><a href="https://www.facebook.com/people/Africar-Rentals/100086315358950/" target="_blank" rel="noopener">Facebook</a></div>
     </div>
     <small>Africar Rentals · Long-term van hire · Perth, Western Australia</small>
   </div>
