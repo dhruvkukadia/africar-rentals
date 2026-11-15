@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Africar Rentals · Monthly Van Hire, Perth</title>
+<meta name="description" content="Monthly van hire in Perth, WA. Minimum 1 month. Check van availability and send an inquiry.">
+<style>
+  :root { --accent: #d9661f; --ink: #1d1d1f; --muted: #6b6b6b; --line: #e4e1dc; --free: #e6f4e7; --free-ink: #1b5e20; --booked: #d9d9d9; --clash: #c62828; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; color: var(--ink); background: #faf8f5; }
+  header { background: var(--ink); color: #fff; padding: 2.5rem 1rem; text-align: center; }
+  header h1 { margin: 0; font-size: 2rem; }
+  header p { margin: .25rem 0 0; opacity: .8; }
+  main { max-width: 960px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  main > h2 { margin: 0 0 1rem; }
+  #vans { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+  .van { display: flex; flex-direction: column; gap: .15rem; text-align: left; font: inherit; color: inherit; padding: 1rem; border: 1px solid var(--line); border-radius: 12px; background: #fff; cursor: pointer; }
+  .van:hover, .van:focus-visible { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px rgb(217 102 31 / .2); }
+  .van .icon { font-size: 2.5rem; line-height: 1; margin-bottom: .5rem; }
+  .van span:not(.icon) { color: var(--muted); font-size: .9rem; }
+  .van em { margin-top: .5rem; font-style: normal; font-size: .9rem; color: var(--accent); font-weight: 600; }
+  footer.site { text-align: center; color: var(--muted); font-size: .9rem; padding: 0 1rem 2rem; }
+  footer.site a { color: var(--accent); }
+
+  dialog { width: min(960px, calc(100% - 2rem)); height: min(820px, calc(100% - 2rem)); padding: 0; border: 0; border-radius: 14px; }
+  dialog[open] { display: flex; flex-direction: column; }
+  dialog::backdrop { background: rgb(0 0 0 / .55); }
+  .bar { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; padding: .75rem 1rem; border-bottom: 1px solid var(--line); }
+  .bar h2 { margin: 0; font-size: 1.25rem; flex: 1; }
+  .bar form { margin: 0; }
+  .close { font: inherit; font-size: 1.25rem; line-height: 1; padding: .4rem .6rem; border: 0; border-radius: 8px; background: #f0eeeb; cursor: pointer; }
+  .legend { display: flex; gap: 1rem; margin: 0; padding: 0; list-style: none; font-size: .85rem; color: var(--muted); width: 100%; }
+  .legend i { display: inline-block; width: .9rem; height: .9rem; border-radius: 3px; vertical-align: -2px; margin-right: .3rem; }
+  .legend .free { background: var(--free); } .legend .booked { background: var(--booked); } .legend .sel { background: var(--accent); }
+
+  #grid { flex: 1; min-height: 0; overflow: auto; display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); align-content: start; padding: 1rem; }
+  #grid h3 { margin: 0 0 .4rem; font-size: 1rem; }
+  .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+  .days b { font-size: .7rem; color: var(--muted); text-align: center; }
+  .days button { aspect-ratio: 1; padding: 0; border: 0; border-radius: 6px; font: inherit; font-size: .85rem; background: var(--free); color: var(--free-ink); cursor: pointer; }
+  .days button:not(:disabled):hover { outline: 2px solid var(--accent); }
+  .days button:disabled { cursor: not-allowed; background: none; color: #c4c4c4; }
+  .days button.booked { background: var(--booked); color: #8a8a8a; text-decoration: line-through; }
+  .days button.sel { background: var(--accent); color: #fff; }
+  .days button.sel.booked { background: var(--clash); color: #fff; }
+
+  .foot { border-top: 1px solid var(--line); border-bottom: 0; }
+  #summary { margin: 0; flex: 1 1 260px; }
+  #summary.error { color: var(--clash); font-weight: 600; }
+  .foot select, #send { font: inherit; padding: .55rem .75rem; border-radius: 8px; border: 1px solid var(--line); background: #fff; }
+  #send { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; cursor: pointer; }
+  #send:disabled { opacity: .45; cursor: not-allowed; }
+
+  @media (max-width: 640px) {
+    dialog { width: 100%; height: 100%; max-width: none; max-height: none; border-radius: 0; }
+    #summary { flex-basis: 100%; }
+    .foot label { flex: 1; display: flex; align-items: center; gap: .5rem; white-space: nowrap; }
+    .foot select { flex: 1; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Africar Rentals</h1>
+  <p>Monthly van hire in Perth, WA · Minimum hire 1 month</p>
+</header>
+
+<main>
+  <h2>Choose a van</h2>
+  <div id="vans"></div>
+</main>
+
+<footer class="site">
+  <a href="https://www.facebook.com/share/1A5Ek22cQa/" target="_blank" rel="noopener">Find us on Facebook</a>
+</footer>
+
+<dialog id="cal" aria-labelledby="van-name">
+  <div class="bar">
+    <h2 id="van-name"></h2>
+    <form method="dialog"><button class="close" aria-label="Close">✕</button></form>
+    <ul class="legend">
+      <li><i class="free"></i>Available</li>
+      <li><i class="booked"></i>On hire</li>
+      <li><i class="sel"></i>Your dates</li>
+    </ul>
+  </div>
+  <div id="grid"></div>
+  <div class="bar foot">
+    <p id="summary" aria-live="polite"></p>
+    <label>Hire for <select id="months"></select></label>
+    <button id="send" type="button">Send inquiry</button>
+  </div>
+</dialog>
+
+<script src="app.js"></script>
+</body>
+</html>
